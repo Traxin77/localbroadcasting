@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            background-color: black;
+            color: azure;
+        }
+
+        .upload {
+            background-color: rgb(36, 35, 35);
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 545px;
+            margin-left: 325px;
+            color: azure;
+        }
+        #exit-button {
+            background-color: rgb(190, 23, 18);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(59, 58, 58, 0.5);
+            border-radius: 5px;
+            margin-left: 425px;
+            margin-right: 60px;
+            margin-top: 20px;
+        }
+        .contain{
+            display:flex;
+            justify-content: space-between;
+        }
+        .file-list{
+            display:flex;
+            flex-wrap: wrap;
+        }
+        #delete-button{
+            background-color: rgb(190, 23, 18);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(59, 58, 58, 0.5);
+            border-radius: 5px;
+            margin-left: 20px;
+            margin-top: 20px;
+            margin-right: 58px;
+        }
+        #end-button{
+            background-color: rgb(190, 23, 18);
+            border: none;
+            padding: 10px 20px;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(59, 58, 58, 0.5);
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-white">About</h4>
+                <p class="text-muted">we aim to enhance the teaching experience in a classroom by providing seemless access of teaching
+                     resources to every individual.This project incompasses multiple features including ability to bradcast a screen,
+                    share and recive files over the network and general logging and database capabilities</p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Team member</h4>
+                <ul class="list-unstyled">
+                  <li><a  class="text-white">Yatharth Tyagi</a></li>
+                  <li><a  class="text-white">Maanas Talware</a></li>
+                  <li><a class="text-white">Prixit Singh</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>LocalBroadcast</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+              aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+    <div class="container">
+        <form class="upload" action="/upload" method="post" enctype="multipart/form-data">
+            <h1>Upload File</h1>
+            <input type="file" name="fileInput" id="fileInput" placeholder="Choose file" required>
+            <button type="submit" class="btn btn-success">Upload</button>
+        </form>
+    </div>
+    <br>
+    <div class="contain">
+        <h1 class="file-list" >User Information</h1>
+        <h1 class="file-list" style="margin-right: 75px;">Uploads</h1>
+        <h1 class="file-list" style="margin-right: 325px">Submissions</h1>
+    </div>
+    <br>
+    <div class="contain">
+        <table class="file-list" border="3" width="500px" style="float:left;">
+            <tr>
+                <td colspan="3" align="center">Connected User</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <th>IP Address</th>
+                <th>Login Time</th>
+            </tr>
+            {% for user in user_info_data %}
+            <tr>
+                <td>{{ user[1] }}</td>
+                <td>{{ user[2] }}</td>
+                <td>{{ user[3] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+        <table class="file-list" border="3"  width="350px" >
+            <tbody>
+                <tr>
+                    <td colspan="2" align="center" >Uploded files</td>
+                </tr>
+                {% for file in uploaded_files %}
+                <tr>
+                    <td>{{ file }}</td>
+                    <td><a class="btn btn-danger" href="{{ url_for('delete_file', filename=file) }}">Delete</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <table class="file-list" border="3"  width="350px" style="margin-right: 200px;" >
+            <tbody>
+                <tr>
+                    <td colspan="2" align="center" >Submissions</td>
+                </tr>
+                {% for file in st_uploaded_files %}
+                <tr>
+                    <td>{{ file }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="contain">
+        <form action="/delete1" method="post">
+            <button type="submit" class="btn" id="delete-button">Cleardata</button>
+        </form>
+        <form action="/" method="post" >
+            <button type="submit" class="btn" id="exit-button" style="margin-right: 500px;">Exitadmin</button>
+        </form>
+        <form action="/stop_stream" method="post" >
+            <button type="submit" class="btn" id="end-button" style="margin-right: 298px;">EndStream</button>
+        </form>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

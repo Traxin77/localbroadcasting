@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Join the Stream</title>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css" integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js" integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+
+   <style>
+       body {
+           background-color: black;
+       }
+       form {
+           background-color: rgb(36, 35, 35);
+           padding: 20px;
+           border-radius: 10px;
+           max-width: 600px;
+           margin-left: 350px;
+       }
+       #submit-button {
+           background-color: rgb(17, 155, 17);
+           border: none;
+           padding: 10px 20px;
+           color: white;
+           cursor: pointer;
+           box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+           border-radius: 5px;
+       }
+       #password-field {
+           display: none;
+       }
+   </style>
+</head>
+<body>
+    <header>
+        <div class="collapse bg-dark" id="navbarHeader">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-8 col-md-7 py-4">
+                <h4 class="text-white">About</h4>
+                <p class="text-muted">we aim to enhance the teaching experience in a classroom by providing seemless access of teaching
+                     resources to every individual.This project incompasses multiple features including ability to bradcast a screen,
+                    share and recive files over the network and general logging and database capabilities</p>
+              </div>
+              <div class="col-sm-4 offset-md-1 py-4">
+                <h4 class="text-white">Team member</h4>
+                <ul class="list-unstyled">
+                  <li><a  class="text-white">Yatharth Tyagi</a></li>
+                  <li><a  class="text-white">Maanas Talware</a></li>
+                  <li><a class="text-white">Prixit Singh</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar navbar-dark bg-dark shadow-sm">
+          <div class="container">
+            <a href="#" class="navbar-brand d-flex align-items-center">
+              <strong>LocalBroadcast</strong>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader"
+              aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+          </div>
+        </div>
+      </header>
+   <div class="container mt-5">
+       <div class="text-center">
+           <h1 class="display-4 text-white">Join the Stream</h1>
+           <p class="lead text-white">Please enter your name to join the stream.</p>
+       </div>
+
+       <form action="/view" method="post" class="mt-4" onsubmit="return validateForm()">
+           <div class="mb-3">
+               <label for="name" class="form-label text-white">Name:</label>
+               <input type="text" class="form-control" name="name" id="name" required oninput="checkAdmin()">
+           </div>
+           <div class="mb-3" id="password-field">
+               <label for="password" class="form-label text-white">Password:</label>
+               <input type="password" class="form-control" name="password" id="password">
+           </div>
+
+           <button type="submit" class="btn" id="submit-button">Join Stream</button>
+       </form>
+   </div>
+<script>
+    function checkAdmin() {
+        var usernameInput = document.getElementById('name');
+        var passwordField = document.getElementById('password-field');
+        if (usernameInput.value.toLowerCase() === 'admin') {
+            passwordField.style.display = 'block';
+        } else {
+            passwordField.style.display = 'none';
+        }
+    }
+
+    function validateForm() {
+        var usernameInput = document.getElementById('name');
+        var passwordInput = document.getElementById('password');
+        var username = usernameInput.value.toLowerCase();
+        var password = passwordInput.value;
+        if (username === 'admin') {
+            if (password === 'admin@123') {
+                return true;
+            } else {
+                alert('Incorrect password for admin.');
+                return false;
+            }
+        }
+
+        return true;
+    }
+</script>
+</body>
+</html>
