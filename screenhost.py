@@ -30,6 +30,7 @@ app.config['MYSQL_DB'] = 'broadcast'
 mysql = MySQL(app)
 
 
+#function to get user info
 def get_user_info():
     cur = mysql.connection.cursor()
     cur.execute("SELECT * FROM user_info")
